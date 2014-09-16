@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'minitest/autorun'
-require_relative '../lib/board'
+require_relative '../lib/chess'
 
 class TestString < MiniTest::Test
 
