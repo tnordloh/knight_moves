@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require_relative '../lib/board'
+
+  board=Board::Board.new
+  puts "invalid, that's good!'" unless  board.is_position_valid? ({:row => "t", :column => 10})
+  puts "valid, that's good!'" if  board.is_position_valid? ({:row => "a", :column => 1})
+  knight =board.knight({:row => "a",:column => 1})
+  p knight
+  board.valid_moves(knight)
