@@ -13,22 +13,24 @@ module Chess
     def knight
       @knight.position
     end
+
     def knight position
      @knight = Piece.new(position, KNIGHTMOVES ) 
     end
+
     def valid_moves 
       @knight.possible_moves.select { |move| 
-        p=Position.new((@knight.row().offset(move[0])), @knight.column+move[1]) 
-        is_position_valid?(p) 
+        is_position_valid?(@knight.move(move)) 
       }
     end
+
     def is_position_valid? position
       @rows.include?(position.row) && @columns.include?(position.column)
     end
-    def offset_row row,offset
-      (row.ord+offset).chr
-    end
+
   end
+
+
   Piece = Struct.new(:position, :possible_moves) {
     def row
       position[:row]
@@ -36,6 +38,12 @@ module Chess
     def column
       position[:column]
     end
+    def move coordinate
+      Position.new((row().offset(coordinate[0])), column+coordinate[1]) 
+    end
   } 
+
+
   Position = Struct.new(:row,:column)
+
 end
