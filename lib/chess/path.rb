@@ -41,7 +41,7 @@ module Chess
       board.valid_positions.each {|v_position|
         add_path(position,v_position,1,v_position)
       }
-      return board.valid_positions
+      return board.valid_positions.shuffle
     end
     def add_record(position,destination,distance,direction)
       puts "in add_record"
