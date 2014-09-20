@@ -12,7 +12,7 @@ module Chess
     end
 
     def knight position
-     @knight = Piece.new(position, KNIGHTMOVES ) 
+     @knight=Chess::Piece.new(position, KNIGHTMOVES ) 
     end
 
     def valid_moves 
@@ -31,20 +31,6 @@ module Chess
     end
 
   end
-
-
-  Piece = Struct.new(:position, :possible_moves) {
-    def row
-      position[0,1]
-    end
-    def column
-      position[1,1].to_i
-    end
-    def move coordinate
-      Position.new((row().offset(coordinate[0])), column+coordinate[1]) 
-    end
-  } 
-
 
   Position = Struct.new(:row,:column) {
     def coordinate
