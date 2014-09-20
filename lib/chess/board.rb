@@ -11,7 +11,7 @@ module Chess
       knight(position)
     end
 
-    def knight position
+   def knight position
      @knight=Chess::Piece.new(position, KNIGHTMOVES ) 
     end
 
