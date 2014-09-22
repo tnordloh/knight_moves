@@ -5,37 +5,50 @@ module Chess
                     [1, 2],[1, -2],
                     [-1,2],[-1,-2],
                     [-2,1],[-2,-1] 
-    def initialize(position = nil)
+    def initialize(position = 'a1')
       @rows = 'a'..'h'
       @columns = 1..8
-      knight(position)
+      @knight=Chess::Piece.new(position, KNIGHTMOVES ) 
     end
 
-   def knight position
-     @knight=Chess::Piece.new(position, KNIGHTMOVES ) 
+    def knight position
+     @knight.move(position)
     end
 
+    def each
+      ('a'..'d').each { |row|
+        (1..4).each { |column|
+          yield "#{row}#{column}"
+          yield "#{row}#{9-column}"
+          yield "#{row.mirror}#{9-column}"
+          yield "#{row.mirror}#{column}"
+        }
+      }
+    end
+    def get_mirrors row,column
+    end
+    def select_column position
+      position[1,2].to_i
+    end
+    def select_row position
+      position[0,1]
+    end
     def valid_moves 
       @knight.possible_moves.select { |move| 
-        is_position_valid?(@knight.move(move)) 
+        position = @knight.try_move(move)
+        is_position_valid?(select_row(position), select_column(position)) 
       }
     end
     def valid_positions 
       valid_moves.map {|move|
-        @knight.move(move).coordinate()
+        @knight.try_move(move)
       }
     end
 
-    def is_position_valid? position
-      @rows.include?(position.row) && @columns.include?(position.column)
+    def is_position_valid? row, column
+      @rows.include?(row) && @columns.include?(column)
     end
 
   end
-
-  Position = Struct.new(:row,:column) {
-    def coordinate
-      return "#{row}#{column}"
-    end
-  }
 
 end

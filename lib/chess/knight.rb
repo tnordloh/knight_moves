@@ -10,8 +10,12 @@ module Chess
     def column
       position[1,1].to_i
     end
-    def move coordinate
-      Position.new((row().offset(coordinate[0])), column+coordinate[1]) 
+    def move position
+      @position = position
+    end
+    def try_move coordinate
+      #Position.new((row().offset(coordinate[0])), column+coordinate[1]) 
+      "#{(row().offset(coordinate[0]))}#{column+coordinate[1]}"
     end
   end
 end
