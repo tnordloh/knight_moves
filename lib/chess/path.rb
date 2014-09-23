@@ -9,7 +9,7 @@ module Chess
     def initialize 
       @paths = {}
       @board=Chess::Board.new("a1")
-      post_initialize
+      @board.each {|position| initialize_empty_position position }
     end
 
     def find_path start_position,finish_position
@@ -18,12 +18,6 @@ module Chess
     end
 
     private
-
-    def post_initialize
-      @board.each {|position|
-        initialize_empty_position position
-      }
-    end
 
     def initialize_empty_position position
       @paths[position] = {} if @paths[position] == nil
@@ -47,10 +41,9 @@ module Chess
     def path_iterate start_position,finish_position
       moves = [start_position,finish_position]
       while !path_exists?(start_position,finish_position) && moves.length >0
-        p moves.size
         update_paths(moves.shift)
         @board.valid_positions.shuffle.each {|x|
-          moves << x
+          moves << x if (!moves.include?(x))
         }
       end
     end
@@ -58,10 +51,8 @@ module Chess
     def add_record(position,destination,distance,direction)
       if !path_exists?(position,destination) 
         @paths[position][destination] =  Neighbor.new(distance,direction) 
-        puts "added record"
       elsif is_path_better?(position,destination,distance)
         @paths[position][destination] =  Neighbor.new(distance,direction) 
-        puts "updated record"
       end
     end
 
