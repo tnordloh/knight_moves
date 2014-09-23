@@ -45,7 +45,7 @@ module Chess
       while !path_exists?(start_position,finish_position) && moves.length >0
         update_paths(moves.shift)
         @board.valid_positions.shuffle.each {|x|
-          moves << x if (!moves.include?(x) )
+          moves << x unless moves.include?(x)
         }
       end
     end
