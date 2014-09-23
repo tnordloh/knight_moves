@@ -9,6 +9,7 @@ module Chess
     def initialize 
       @paths = {}
       @board=Chess::Board.new("a1")
+      @dirty = {}
       @board.each {|position| initialize_empty_position position }
     end
 
@@ -21,6 +22,7 @@ module Chess
 
     def initialize_empty_position position
       @paths[position] = {} if @paths[position] == nil
+      @dirty[position]= true
       temp=@paths[position]
       temp[position] =  Neighbor.new(0,position) 
     end
@@ -43,17 +45,17 @@ module Chess
       while !path_exists?(start_position,finish_position) && moves.length >0
         update_paths(moves.shift)
         @board.valid_positions.shuffle.each {|x|
-          moves << x if (!moves.include?(x))
+          moves << x if (!moves.include?(x) )
         }
       end
     end
 
     def add_record(position,destination,distance,direction)
-      if !path_exists?(position,destination) 
+      if !path_exists?(position,destination) || is_path_better?(position,destination,distance)
         @paths[position][destination] =  Neighbor.new(distance,direction) 
-      elsif is_path_better?(position,destination,distance)
-        @paths[position][destination] =  Neighbor.new(distance,direction) 
+        return true
       end
+      return false
     end
 
     def update_paths position
