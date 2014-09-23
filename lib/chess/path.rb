@@ -53,9 +53,7 @@ module Chess
     def add_record(position,destination,distance,direction)
       if !path_exists?(position,destination) || is_path_better?(position,destination,distance)
         @paths[position][destination] =  Neighbor.new(distance,direction) 
-        return true
       end
-      return false
     end
 
     def update_paths position
