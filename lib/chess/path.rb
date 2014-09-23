@@ -9,7 +9,6 @@ module Chess
     def initialize 
       @paths = {}
       @board=Chess::Board.new("a1")
-      @dirty = {}
       @board.each {|position| initialize_empty_position position }
     end
 
@@ -21,8 +20,7 @@ module Chess
     private
 
     def initialize_empty_position position
-      @paths[position] = {} if @paths[position] == nil
-      @dirty[position]= true
+      @paths[position] ||= {} 
       temp=@paths[position]
       temp[position] =  Neighbor.new(0,position) 
     end
