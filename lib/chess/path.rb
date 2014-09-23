@@ -34,8 +34,7 @@ module Chess
     end
 
     def path_exists? start_position, finish_position
-      return false if lookup_path(start_position,finish_position) == nil
-      return true
+      !!lookup_path(start_position,finish_position)
     end
 
     def path_iterate start_position,finish_position
