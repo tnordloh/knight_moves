@@ -1,15 +1,11 @@
 module Chess
   class Board
     attr_accessor :knight, :rows, :columns
-    KNIGHTMOVES =  [[2, 1],[2, -1],
-                    [1, 2],[1, -2],
-                    [-1,2],[-1,-2],
-                    [-2,1],[-2,-1] ]
 
     def initialize(position = 'a1')
       @rows = ('a'..'h').to_a
       @columns = (1..8).to_a
-      @knight=Chess::Piece.new(position, KNIGHTMOVES ) 
+      @knight=Chess::Knight.new(position) 
     end
 
     def knight position
