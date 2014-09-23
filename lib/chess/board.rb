@@ -6,6 +6,7 @@ module Chess
       @rows = ('a'..'h').to_a
       @columns = (1..8).to_a
       @knight=Chess::Knight.new(position) 
+      @knight=Chess::Bishop.new(position) 
     end
 
     def knight position
