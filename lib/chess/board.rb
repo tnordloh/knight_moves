@@ -5,12 +5,15 @@ module Chess
     def initialize(position = 'a1')
       @rows = ('a'..'h').to_a
       @columns = (1..8).to_a
-      @knight=Chess::Knight.new(position) 
-      @knight=Chess::Bishop.new(position) 
+      @piece=Chess::Knight.new(position) 
     end
 
-    def knight position
-     @knight.move(position)
+    def replace_piece piece,position
+      @piece=Chess::Knight.new(position) if(piece=="knight")
+      @piece=Chess::Bishop.new(position) if(piece=="bishop") 
+    end
+    def set position
+      @piece.move(position)
     end
 
     def each
@@ -24,16 +27,16 @@ module Chess
     def select_row position
       position[0,1]
     end
-  
+
     def valid_moves 
-      @knight.possible_moves.select { |move| 
-        position = @knight.try_move(move)
+      @piece.possible_moves.select { |move| 
+        position = @piece.try_move(move)
         is_position_valid?(select_row(position), select_column(position)) 
       }
     end
 
     def valid_positions 
-      valid_moves.map {|move| @knight.try_move(move) }
+      valid_moves.map {|move| @piece.try_move(move) }
     end
 
     def is_position_valid? row, column

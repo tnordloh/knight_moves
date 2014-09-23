@@ -12,9 +12,12 @@ module Chess
 
     def find_path start_position,finish_position
       path_iterate(start_position, finish_position) 
-      path_to_s(start_position,finish_position) if path_exists?(start_position,finish_position)
+      to_s(start_position,finish_position) if path_exists?(start_position,finish_position)
     end
 
+    def set_piece piece,position
+      @board.replace_piece(piece,position)
+    end
     private
 
     def initialize_empty_position position
@@ -38,7 +41,7 @@ module Chess
     def path_iterate start_position,finish_position
       moves = [start_position,finish_position]
       while !path_exists?(start_position,finish_position) && moves.length >0
-        update_paths(moves.shift)
+        merge_paths(moves.shift)
         @board.valid_positions.shuffle.each {|x|
           moves << x unless moves.include?(x)
         }
@@ -51,13 +54,13 @@ module Chess
       end
     end
 
-    def update_paths position
-      update_neighbors(position)
-      update_self(position)
+    def merge_paths position
+      merge_neighbor_paths(position)
+      merge_position_paths(position)
     end
 
-    def update_neighbors position
-      @board.knight(position)
+    def merge_neighbor_paths position
+      @board.set(position)
       @board.valid_positions.shuffle.each {|neighbor| 
         @paths[position].each {|destination,path|
           add_record(neighbor,destination,path.distance+1,position)
@@ -65,8 +68,8 @@ module Chess
       }
     end
 
-    def update_self position
-      @board.knight(position)
+    def merge_position_paths position
+      @board.set(position)
       @board.valid_positions.shuffle.each {|neighbor| 
         @paths[neighbor].each {|destination,path|
           add_record(position,destination,path.distance+1,neighbor)
@@ -74,9 +77,9 @@ module Chess
       }
     end
 
-    def path_to_s start_position, finish_position
+    def to_s start_position, finish_position
       return "#{start_position}" if paths[start_position][finish_position].distance==0
-      return "#{start_position}," + path_to_s(paths[start_position][finish_position][:direction],finish_position)
+      return "#{start_position}," + to_s(paths[start_position][finish_position][:direction],finish_position)
     end
 
   end
