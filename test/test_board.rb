@@ -28,4 +28,12 @@ class TestBoard < MiniTest::Test
     @board.set( 'b2' )
     assert_equal( %w[ a1 b2 c3 d4 e5 f6 g7 h8 a3 c1], @board.valid_positions)
   end
+
+  def test_is_position_valid?
+    @board=Chess::Board.new()
+    assert_equal(false, @board.is_position_valid?([-1,0] ) )
+    assert_equal(false, @board.is_position_valid?([-1,-1] ) )
+    assert_equal(false, @board.is_position_valid?([0,-1] ) )
+    assert_equal(true, @board.is_position_valid?([1,1] ) )
+  end
 end

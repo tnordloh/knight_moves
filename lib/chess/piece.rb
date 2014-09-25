@@ -18,7 +18,7 @@ module Chess
       @position = position
     end
     def try_move coordinate
-      "#{(row().offset(coordinate[0]))}#{column+coordinate[1]}"
+      [position[0]+coordinate[0], position[1]+coordinate[1]]
     end
   end
 end

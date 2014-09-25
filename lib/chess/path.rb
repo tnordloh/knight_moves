@@ -8,11 +8,12 @@ module Chess
       @paths = {}
       @board=Chess::Board.new("a1")
       @board.each {|position| initialize_empty_position position }
+      @last_change = Hash.new(0)
     end
 
     def find_path start_position,finish_position
       path_iterate(start_position, finish_position) 
-      to_s(start_position,finish_position) if path_exists?(start_position,finish_position)
+      to_s(start_position,finish_position)
     end
 
     def set_piece piece,position
@@ -40,17 +41,21 @@ module Chess
 
     def path_iterate start_position,finish_position
       moves = [start_position,finish_position]
+      iterations=1
       while !path_exists?(start_position,finish_position) && moves.length >0
         merge_paths(moves.shift)
         @board.valid_positions.shuffle.each {|x|
-          moves << x unless moves.include?(x)
+          moves << x unless moves.include?(x) || @last_change[x] > 64
         }
       end
     end
 
     def add_record(position,destination,distance,direction)
       if !path_exists?(position,destination) || is_path_better?(position,destination,distance)
+        @last_change[position] =0
         @paths[position][destination] =  Neighbor.new(distance,direction) 
+      else
+        @last_change[position] +=1
       end
     end
 
@@ -61,7 +66,7 @@ module Chess
 
     def merge_neighbor_paths position
       @board.set(position)
-      @board.valid_positions.shuffle.each {|neighbor| 
+      @board.valid_positions.each {|neighbor| 
         @paths[position].each {|destination,path|
           add_record(neighbor,destination,path.distance+1,position)
         }
@@ -70,7 +75,7 @@ module Chess
 
     def merge_position_paths position
       @board.set(position)
-      @board.valid_positions.shuffle.each {|neighbor| 
+      @board.valid_positions.each {|neighbor| 
         @paths[neighbor].each {|destination,path|
           add_record(position,destination,path.distance+1,neighbor)
         }
@@ -78,6 +83,7 @@ module Chess
     end
 
     def to_s start_position, finish_position
+      return "no path found" unless path_exists?(start_position,finish_position)
       return "#{start_position}" if paths[start_position][finish_position].distance==0
       return "#{start_position}," + to_s(paths[start_position][finish_position][:direction],finish_position)
     end

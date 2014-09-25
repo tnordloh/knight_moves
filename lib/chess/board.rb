@@ -1,46 +1,41 @@
 module Chess
   class Board
-    attr_accessor :knight, :rows, :columns
+    attr_accessor 
 
-    def initialize(position = 'a1')
-      @rows = ('a'..'h').to_a
-      @columns = (1..8).to_a
-      @piece=Chess::Knight.new(position) 
+    def initialize(thissize = 8)
+      @SIZE=thissize
+      @rows = 0...8
+      @columns = 0...8
+      @square=Chess::Square.new()
+      @piece=Chess::Knight.new([0,0]) 
     end
 
     def replace_piece piece,position
-      @piece=Chess::Knight.new(position) if(piece=="knight")
-      @piece=Chess::Bishop.new(position) if(piece=="bishop") 
+      @piece=Chess::Knight.new(@square.to_coordinate(position)) if(piece=="knight")
+      @piece=Chess::Bishop.new(@square.to_coordinate(position)) if(piece=="bishop") 
     end
+
     def set position
-      @piece.move(position)
+      @piece.move(@square.to_coordinate(position))
     end
 
     def each
-      @rows.each { |row| @columns.each { |column| yield "#{row}#{column}" } }
-    end
-
-    def select_column position
-      position[1,2].to_i
-    end
-
-    def select_row position
-      position[0,1]
+      @rows.each { |row| @columns.each { |column| yield @square.to_chess_notation([row,column]) } }
     end
 
     def valid_moves 
       @piece.possible_moves.select { |move| 
-        position = @piece.try_move(move)
-        is_position_valid?(select_row(position), select_column(position)) 
+        position = @piece.try_move move
+        is_position_valid?(position) 
       }
     end
 
     def valid_positions 
-      valid_moves.map {|move| @piece.try_move(move) }
+      valid_moves.map {|move| @square.to_chess_notation(@piece.try_move move) }
     end
 
-    def is_position_valid? row, column
-      @rows.include?(row) && @columns.include?(column)
+    def is_position_valid? position 
+      (@rows.include?(position[0])  && @columns.include?(position[1]))
     end
 
   end
