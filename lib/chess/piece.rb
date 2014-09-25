@@ -1,12 +1,8 @@
 module Chess
   class Piece
     attr_reader :position,:possible_moves
-    def initialize(position)
+    def initialize position 
       @position=position
-      post_initialize
-    end
-    def post_initialize
-      nil
     end
     def row
       position[0,1]

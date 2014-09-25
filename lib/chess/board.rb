@@ -3,38 +3,34 @@ module Chess
     attr_accessor 
 
     def initialize(size = 8)
-      @rows = 0...size
-      @columns = 0...size
-      @square=Chess::Square.new()
+      @columns = 1..8
+      @rows = 'a'..'h'
+      @board= {}
+      @rows.each { |row| @columns.each { |column| @board["#{row}#{column}"] = Chess::Square.new("#{row}#{column}") } }
       @piece=Chess::Knight.new([0,0]) 
     end
 
-    def replace_piece piece,position
-      @piece=Chess::Knight.new(@square.to_coordinate(position)) if(piece=="knight")
-      @piece=Chess::Bishop.new(@square.to_coordinate(position)) if(piece=="bishop") 
+    def replace_piece piece
+      @piece=piece
     end
 
     def set position
-      @piece.move(@square.to_coordinate(position))
+      @board[position].add_piece(@piece)
     end
 
     def each
-      @rows.each { |row| @columns.each { |column| yield @square.to_chess_notation([row,column]) } }
+      @board.values.each { |square| yield square.position }
     end
 
-    def valid_moves 
-      @piece.possible_moves.select { |move| 
-        position = @piece.try_move move
-        is_position_valid?(position) 
+    def valid_positions position 
+      set(position)
+      @board[position].moves.select { |move| 
+        is_position_valid?(move) 
       }
     end
 
-    def valid_positions 
-      valid_moves.map {|move| @square.to_chess_notation(@piece.try_move move) }
-    end
-
     def is_position_valid? position 
-      (@rows.include?(position[0])  && @columns.include?(position[1]))
+      !!@board[position]
     end
 
   end

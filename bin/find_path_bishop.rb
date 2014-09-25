@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 require_relative "../lib/chess.rb"
-p=Chess::Path.new()
+p=Chess::Path.new(Chess::Bishop.new('a1'))
 
-p.set_piece("bishop", "a1")
 if ARGV.size != 2
-  abort "expecting 2 arguments"
+  abort "error: this program finds the path between two positions on a chess board
+  it takes it's arguments in chess notation. 
+  example: #{__FILE__} a1 c2"
 end
 puts p.find_path(ARGV[0],ARGV[1])

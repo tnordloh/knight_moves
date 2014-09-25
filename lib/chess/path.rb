@@ -4,11 +4,13 @@ module Chess
     include Enumerable
     attr_reader :paths,:board
 
-    def initialize 
+    def initialize piece = Chess::Knight.new('a1')
       @paths = {}
       @board=Chess::Board.new(8)
       @board.each {|position| add_zero_distance_path position }
       @last_change = Hash.new(0)
+      @board.replace_piece piece
+      @piece = piece
     end
 
     def find_path start_position,finish_position
@@ -17,7 +19,7 @@ module Chess
     end
 
     def set_piece piece,position
-      @board.replace_piece(piece,position)
+      @board.replace_piece(@piece.move(position))
     end
     private
 
@@ -43,8 +45,9 @@ module Chess
       moves = [start_position,finish_position]
       iterations=1
       while !path_exists?(start_position,finish_position) && moves.length >0
-        build_on_known_paths(moves.shift)
-        @board.valid_positions.shuffle.each {|x|
+        current_position= moves.shift
+        build_on_known_paths(current_position)
+        @board.valid_positions(current_position).shuffle.each {|x|
           moves << x unless moves.include?(x) || @last_change[x] > 64
         }
       end
@@ -65,8 +68,7 @@ module Chess
     end
 
     def add_neighbor_paths_to_current_position position
-      @board.set(position)
-      @board.valid_positions.each {|neighbor| 
+      @board.valid_positions(position).each {|neighbor| 
         @paths[position].each {|destination,path|
           record_new_path(neighbor,destination,path.distance+1,position)
         }
@@ -74,8 +76,7 @@ module Chess
     end
 
     def add_current_position_paths_to_neighbors position
-      @board.set(position)
-      @board.valid_positions.each {|neighbor| 
+      @board.valid_positions(position).each {|neighbor| 
         @paths[neighbor].each {|destination,path|
           record_new_path(position,destination,path.distance+1,neighbor)
         }
