@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require_relative "../lib/chess.rb"
-p=Chess::Path.new(Chess::Bishop.new())
+p=Chess::Path.new(BISHOP_MOVES)
 
 if ARGV.size != 2
   abort "error: this program finds the path between two positions on a chess board

@@ -3,7 +3,7 @@ module Chess
   class Path
     include Enumerable
 
-    def initialize piece = Chess::Knight.new()
+    def initialize piece = KNIGHT_MOVES
       @paths = {}
       @board=Chess::Board.new(8)
       @board.each {|position| add_zero_distance_path position }

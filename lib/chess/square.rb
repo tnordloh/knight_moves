@@ -18,7 +18,7 @@ module Chess
       @piece=piece
     end
     def moves
-      @piece.possible_moves.map {|coordinate| 
+      @piece.map {|coordinate| 
         send(coordinate[0], *coordinate[1]) 
       }
     end

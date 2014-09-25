@@ -7,7 +7,7 @@ module Chess
       @rows = 'a'..'h'
       @board= {}
       @rows.each { |row| @columns.each { |column| @board["#{row}#{column}"] = Chess::Square.new("#{row}#{column}") } }
-      @piece=Chess::Knight.new() 
+      @piece=KNIGHT_MOVES
     end
 
     def replace_piece piece
