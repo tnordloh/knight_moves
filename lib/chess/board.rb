@@ -2,10 +2,9 @@ module Chess
   class Board
     attr_accessor 
 
-    def initialize(thissize = 8)
-      @SIZE=thissize
-      @rows = 0...8
-      @columns = 0...8
+    def initialize(size = 8)
+      @rows = 0...size
+      @columns = 0...size
       @square=Chess::Square.new()
       @piece=Chess::Knight.new([0,0]) 
     end

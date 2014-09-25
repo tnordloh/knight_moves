@@ -6,8 +6,8 @@ module Chess
 
     def initialize 
       @paths = {}
-      @board=Chess::Board.new("a1")
-      @board.each {|position| initialize_empty_position position }
+      @board=Chess::Board.new(8)
+      @board.each {|position| add_zero_distance_path position }
       @last_change = Hash.new(0)
     end
 
@@ -21,13 +21,13 @@ module Chess
     end
     private
 
-    def initialize_empty_position position
+    def add_zero_distance_path position
       @paths[position] ||= {} 
       temp=@paths[position]
       temp[position] =  Neighbor.new(0,position) 
     end
 
-    def is_path_better? position,destination,distance
+    def is_new_path_shorter_than_current? position,destination,distance
       return (path_exists?(position,destination) && (lookup_path(position,destination)).distance > distance)
     end
 
@@ -43,15 +43,15 @@ module Chess
       moves = [start_position,finish_position]
       iterations=1
       while !path_exists?(start_position,finish_position) && moves.length >0
-        merge_paths(moves.shift)
+        build_on_known_paths(moves.shift)
         @board.valid_positions.shuffle.each {|x|
           moves << x unless moves.include?(x) || @last_change[x] > 64
         }
       end
     end
 
-    def add_record(position,destination,distance,direction)
-      if !path_exists?(position,destination) || is_path_better?(position,destination,distance)
+    def record_new_path(position,destination,distance,direction)
+      if !path_exists?(position,destination) || is_new_path_shorter_than_current?(position,destination,distance)
         @last_change[position] =0
         @paths[position][destination] =  Neighbor.new(distance,direction) 
       else
@@ -59,25 +59,25 @@ module Chess
       end
     end
 
-    def merge_paths position
-      merge_neighbor_paths(position)
-      merge_position_paths(position)
+    def build_on_known_paths position
+      add_neighbor_paths_to_current_position(position)
+      add_current_position_paths_to_neighbors(position)
     end
 
-    def merge_neighbor_paths position
+    def add_neighbor_paths_to_current_position position
       @board.set(position)
       @board.valid_positions.each {|neighbor| 
         @paths[position].each {|destination,path|
-          add_record(neighbor,destination,path.distance+1,position)
+          record_new_path(neighbor,destination,path.distance+1,position)
         }
       }
     end
 
-    def merge_position_paths position
+    def add_current_position_paths_to_neighbors position
       @board.set(position)
       @board.valid_positions.each {|neighbor| 
         @paths[neighbor].each {|destination,path|
-          add_record(position,destination,path.distance+1,neighbor)
+          record_new_path(position,destination,path.distance+1,neighbor)
         }
       }
     end
