@@ -9,7 +9,6 @@ module Chess
       @board.each {|position| add_zero_distance_path position }
       @last_change = Hash.new(0)
       @board.replace_piece piece
-      @piece = piece
     end
 
     def find_path start_position,finish_position
@@ -17,9 +16,6 @@ module Chess
       to_s(start_position,finish_position)
     end
 
-    def set_piece piece,position
-      @board.replace_piece(@piece.move(position))
-    end
     private
 
     def add_zero_distance_path position
