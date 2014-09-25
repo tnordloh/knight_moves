@@ -1,7 +1,6 @@
 module Chess
   class Knight < Chess::Piece
-    def initialize position
-      super
+    def initialize 
       @possible_moves = [
         ["up_left", [2, 1]],
         ["up_right", [2, 1]],

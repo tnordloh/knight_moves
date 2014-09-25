@@ -22,27 +22,28 @@ module Chess
         send(coordinate[0], *coordinate[1]) 
       }
     end
-    def split
+    def split_chess_notation
       fail "Bad notation" unless @position =~ /\A([a-h])(-?\d+)\z/
       [$1, $2]
     end
-    def right count = 1
-      fields = split
-      "#{(fields[0].ord+count).chr}#{fields[1]}"
-    end
-    def left count = 1
-      right -count
-    end
-    def up count = 1
-      fields = split
-      "#{fields[0]}#{(fields[1].to_i+count)}"
-    end
-    def down count = 1
-      up -count
+    def move up = 0, right = 0
+      fields = split_chess_notation
+      "#{(fields[0].ord+up).chr}#{(fields[1].to_i+right)}"
     end
     def up_right up = 1, right = 1
-      fields = split
-      "#{(fields[0].ord+up).chr}#{(fields[1].to_i+right)}"
+      move up,right
+    end
+    def right count = 1
+      up_right count, 0
+    end
+    def left count = 1
+      up_right -count, 0
+    end
+    def up count = 1
+      up_right 0, count
+    end
+    def down count = 1
+      up_right 0,-count
     end
     def down_right down = 1, right = 1
       up_right(-down,right)

@@ -2,9 +2,8 @@ module Chess
 
   class Path
     include Enumerable
-    attr_reader :paths,:board
 
-    def initialize piece = Chess::Knight.new('a1')
+    def initialize piece = Chess::Knight.new()
       @paths = {}
       @board=Chess::Board.new(8)
       @board.each {|position| add_zero_distance_path position }
@@ -85,8 +84,8 @@ module Chess
 
     def to_s start_position, finish_position
       return "no path found" unless path_exists?(start_position,finish_position)
-      return "#{start_position}" if paths[start_position][finish_position].distance==0
-      return "#{start_position}," + to_s(paths[start_position][finish_position][:direction],finish_position)
+      return "#{start_position}" if @paths[start_position][finish_position].distance==0
+      return "#{start_position}," + to_s(@paths[start_position][finish_position][:direction],finish_position)
     end
 
   end

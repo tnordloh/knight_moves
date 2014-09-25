@@ -1,7 +1,6 @@
 module Chess
   class Bishop < Chess::Piece
-    def initialize position
-      super
+    def initialize 
       moves=(1..8).map {|number| ["up_right", [number,number]]}
       moves+=(1..8).map {|number| ["up_left", [number,number]]}
       moves+=(1..8).map {|number| ["down_right", [number,number]]}
