@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+gem "minitest"
 require 'minitest/autorun'
 require_relative '../lib/chess'
 

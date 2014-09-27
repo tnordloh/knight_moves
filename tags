@@ -1,0 +1,62 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Board	lib/chess/board.rb	/^  class Board$/;"	c
+Chess	lib/chess/path.rb	/^module Chess$/;"	m
+Chess	lib/chess/square.rb	/^module Chess$/;"	m
+DoomedClass	lib/chess/path.rb	/^  class DoomedClass$/;"	c	class:Chess
+Square	lib/chess/square.rb	/^  class Square$/;"	c	class:Chess
+TestBoard	test/test_board.rb	/^class TestBoard < MiniTest::Test$/;"	c
+TestBoard	test/test_path.rb	/^class TestBoard < MiniTest::Test$/;"	c
+TestSquare	test/test_square.rb	/^class TestSquare < MiniTest::Test$/;"	c
+add_current_position_paths_to_neighbors	lib/chess/path.rb	/^    def add_current_position_paths_to_neighbors position$/;"	f	class:Chess.DoomedClass
+add_neighbor_paths_to_current_position	lib/chess/path.rb	/^    def add_neighbor_paths_to_current_position position$/;"	f	class:Chess.DoomedClass
+add_piece	lib/chess/square.rb	/^    def add_piece piece$/;"	f	class:Chess.Square
+add_zero_distance_path	lib/chess/path.rb	/^    def add_zero_distance_path position$/;"	f	class:Chess.DoomedClass
+build_on_known_paths	lib/chess/path.rb	/^    def build_on_known_paths position$/;"	f	class:Chess.DoomedClass
+down	lib/chess/square.rb	/^    def down count = 1$/;"	f	class:Chess.Square
+down_left	lib/chess/square.rb	/^    def down_left down = 1, left = 1$/;"	f	class:Chess.Square
+down_right	lib/chess/square.rb	/^    def down_right down = 1, right = 1$/;"	f	class:Chess.Square
+each	lib/chess/board.rb	/^    def each$/;"	f	class:Board
+find_path	lib/chess/path.rb	/^    def find_path start_position,finish_position$/;"	f	class:Chess.DoomedClass
+initialize	lib/chess/board.rb	/^    def initialize(size = 8)$/;"	f	class:Board
+initialize	lib/chess/path.rb	/^    def initialize piece = KNIGHT_MOVES$/;"	f	class:Chess.DoomedClass
+initialize	lib/chess/square.rb	/^    def initialize position$/;"	f	class:Chess.Square
+is_new_path_shorter_than_current?	lib/chess/path.rb	/^    def is_new_path_shorter_than_current? position,destination,distance$/;"	f	class:Chess.DoomedClass
+is_position_valid?	lib/chess/board.rb	/^    def is_position_valid? position $/;"	f	class:Board
+left	lib/chess/square.rb	/^    def left count = 1$/;"	f	class:Chess.Square
+lookup_path	lib/chess/path.rb	/^    def lookup_path start_position, finish_position$/;"	f	class:Chess.DoomedClass
+move	lib/chess/square.rb	/^    def move up = 0, right = 0$/;"	f	class:Chess.Square
+moves	lib/chess/square.rb	/^    def moves$/;"	f	class:Chess.Square
+path_exists?	lib/chess/path.rb	/^    def path_exists? start_position, finish_position$/;"	f	class:Chess.DoomedClass
+path_iterate	lib/chess/path.rb	/^    def path_iterate start_position,finish_position$/;"	f	class:Chess.DoomedClass
+record_new_path	lib/chess/path.rb	/^    def record_new_path(position,destination,distance,direction)$/;"	f	class:Chess.DoomedClass
+replace_piece	lib/chess/board.rb	/^    def replace_piece piece$/;"	f	class:Board
+right	lib/chess/square.rb	/^    def right count = 1$/;"	f	class:Chess.Square
+set	lib/chess/board.rb	/^    def set position$/;"	f	class:Board
+setup	test/test_board.rb	/^  def setup$/;"	f	class:TestBoard
+setup	test/test_path.rb	/^  def setup$/;"	f	class:TestBoard
+setup	test/test_square.rb	/^  def setup$/;"	f	class:TestSquare
+split_chess_notation	lib/chess/square.rb	/^    def split_chess_notation$/;"	f	class:Chess.Square
+test_down	test/test_square.rb	/^  def test_down$/;"	f	class:TestSquare
+test_find_path_knight	test/test_path.rb	/^  def test_find_path_knight$/;"	f	class:TestBoard
+test_is_position_valid?	test/test_board.rb	/^  def test_is_position_valid?$/;"	f	class:TestBoard
+test_left	test/test_square.rb	/^  def test_left$/;"	f	class:TestSquare
+test_moves	test/test_square.rb	/^  def test_moves$/;"	f	class:TestSquare
+test_right	test/test_square.rb	/^  def test_right$/;"	f	class:TestSquare
+test_to_chess_notation?	test/test_square.rb	/^  def test_to_chess_notation?$/;"	f	class:TestSquare
+test_to_coordinate	test/test_square.rb	/^  def test_to_coordinate$/;"	f	class:TestSquare
+test_up	test/test_square.rb	/^  def test_up$/;"	f	class:TestSquare
+test_up_right	test/test_square.rb	/^  def test_up_right$/;"	f	class:TestSquare
+test_valid_positions_bishop	test/test_board.rb	/^  def test_valid_positions_bishop$/;"	f	class:TestBoard
+test_valid_positions_knight	test/test_board.rb	/^  def test_valid_positions_knight$/;"	f	class:TestBoard
+to_chess_notation	lib/chess/square.rb	/^    def to_chess_notation coordinate $/;"	f	class:Chess.Square
+to_coordinate	lib/chess/square.rb	/^    def to_coordinate position = @position $/;"	f	class:Chess.Square
+to_s	lib/chess/path.rb	/^    def to_s start_position, finish_position$/;"	f	class:Chess.DoomedClass
+up	lib/chess/square.rb	/^    def up count = 1$/;"	f	class:Chess.Square
+up_left	lib/chess/square.rb	/^    def up_left up = 1, left = 1$/;"	f	class:Chess.Square
+up_right	lib/chess/square.rb	/^    def up_right up = 1, right = 1$/;"	f	class:Chess.Square
+valid_positions	lib/chess/board.rb	/^    def valid_positions position $/;"	f	class:Board

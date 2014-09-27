@@ -1,14 +1,14 @@
 module Chess
 
-  class Path
+  class DoomedClass
     include Enumerable
 
     def initialize piece = KNIGHT_MOVES
-      @paths = {}
+      @map = {}
       @board=Chess::Board.new(8)
-      @board.each {|position| add_zero_distance_path position }
       @last_change = Hash.new(0)
       @board.replace_piece piece
+      initialize_path_builders
     end
 
     def find_path start_position,finish_position
@@ -17,71 +17,46 @@ module Chess
     end
 
     private
-
-    def add_zero_distance_path position
-      @paths[position] ||= {} 
-      temp=@paths[position]
-      temp[position] =  Neighbor.new(0,position) 
+    def initialize_path_builders
+      @board.each {|position| @map[position] = Chess::PathBuilder.new(position) }
+      @map.each {|key,position| 
+        @board.valid_positions(key).each {|x|
+          position.add_immediate_neighbor(x)
+        }
+      }
     end
 
-    def is_new_path_shorter_than_current? position,destination,distance
-      return (path_exists?(position,destination) && (lookup_path(position,destination)).distance > distance)
-    end
-
-    def lookup_path start_position, finish_position
-      return @paths[start_position][finish_position] 
+    def any_dirty_paths?
+      @map.values.any? {|value| value.dirty }
     end
 
     def path_exists? start_position, finish_position
-      !!lookup_path(start_position,finish_position)
+      !!@map[start_position].path(finish_position)
     end
 
     def path_iterate start_position,finish_position
       moves = [start_position,finish_position]
       iterations=1
-      while !path_exists?(start_position,finish_position) && moves.length >0
+      while !path_exists?(start_position,finish_position) && any_dirty_paths?
         current_position= moves.shift
         build_on_known_paths(current_position)
-        @board.valid_positions(current_position).shuffle.each {|x|
-          moves << x unless moves.include?(x) || @last_change[x] > 64
+        @map[current_position].immediate_neighbors.shuffle.each {|x|
+          moves << x unless moves.include?(x) 
         }
-      end
-    end
-
-    def record_new_path(position,destination,distance,direction)
-      if !path_exists?(position,destination) || is_new_path_shorter_than_current?(position,destination,distance)
-        @last_change[position] =0
-        @paths[position][destination] =  Neighbor.new(distance,direction) 
-      else
-        @last_change[position] +=1
       end
     end
 
     def build_on_known_paths position
-      add_neighbor_paths_to_current_position(position)
-      add_current_position_paths_to_neighbors(position)
-    end
-
-    def add_neighbor_paths_to_current_position position
-      @board.valid_positions(position).each {|neighbor| 
-        @paths[position].each {|destination,path|
-          record_new_path(neighbor,destination,path.distance+1,position)
-        }
-      }
-    end
-
-    def add_current_position_paths_to_neighbors position
-      @board.valid_positions(position).each {|neighbor| 
-        @paths[neighbor].each {|destination,path|
-          record_new_path(position,destination,path.distance+1,neighbor)
-        }
+      @map[position].immediate_neighbors.each {|neighbor| 
+        @map[position].sync_neighbor_paths(neighbor,@map[neighbor].paths)
+        @map[neighbor].sync_neighbor_paths(position,@map[position].paths)
       }
     end
 
     def to_s start_position, finish_position
       return "no path found" unless path_exists?(start_position,finish_position)
-      return "#{start_position}" if @paths[start_position][finish_position].distance==0
-      return "#{start_position}," + to_s(@paths[start_position][finish_position][:direction],finish_position)
+      return "#{start_position}" if @map[start_position].path(finish_position).distance==0
+      return "#{start_position}," + to_s(@map[start_position].path(finish_position).direction,finish_position)
     end
 
   end

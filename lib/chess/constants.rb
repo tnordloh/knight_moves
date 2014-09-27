@@ -8,6 +8,7 @@ KNIGHT_MOVES = [
   [:down_left  , [1,2]],
   [:down_right , [1,2]]
 ]
+
 BISHOP_MOVES = [
   [:up_left    , [0,0]],
   [:up_left    , [1,1]],
