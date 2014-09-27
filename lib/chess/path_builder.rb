@@ -15,15 +15,6 @@ module Chess
       @immediate_neighbors << destination
     end
 
-    def add_path destination, distance, direction
-      if(is_recorded_path_shorter?(destination,distance)) 
-        @dirty=false
-        return
-      end 
-      @dirty=true 
-      @paths[destination] = Neighbor.new(distance,direction) 
-    end
-
     def sync_neighbor_paths neighbor,paths
       paths.each {|key,path| add_path(key,path.distance+1,neighbor)}
     end
@@ -38,6 +29,16 @@ module Chess
 
     def exists? destination
       !!@paths[destination]
+    end
+
+    #private
+    def add_path destination, distance, direction
+      if(is_recorded_path_shorter?(destination,distance)) 
+        @dirty=false
+        return
+      end 
+      @dirty=true 
+      @paths[destination] = Neighbor.new(distance,direction) 
     end
   end
 end
