@@ -6,7 +6,7 @@ require_relative '../lib/chess'
 class TestBoard < MiniTest::Test
 
   def setup
-    @path=Chess::DoomedClass.new()
+    @path=Chess::PathDirector.new()
   end
 
   def test_find_path_knight
@@ -16,7 +16,7 @@ class TestBoard < MiniTest::Test
   end
 
   def test_find_path_knight
-    @path=Chess::DoomedClass.new(BISHOP_MOVES)
+    @path=Chess::PathDirector.new(BISHOP_MOVES)
     paths_a1_to_a2= "a1,b2"
     assert_equal(paths_a1_to_a2,@path.find_path('a1','b2'))
   end

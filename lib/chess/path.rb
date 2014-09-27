@@ -1,6 +1,6 @@
 module Chess
 
-  class DoomedClass
+  class PathDirector
     include Enumerable
 
     def initialize piece = KNIGHT_MOVES
