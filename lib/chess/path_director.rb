@@ -18,7 +18,8 @@ module Chess
       moves = [start_position,finish_position]
       while !path_exists?(start_position,finish_position) && any_dirty_paths?
         discover_new_neighbors(moves.shift).each {|x| 
-          moves << x unless moves.include?(x) }
+          moves << x unless moves.include?(x) 
+        }
       end
       to_s(start_position,finish_position)
     end
@@ -30,7 +31,7 @@ module Chess
       }
     end
     def initialize_path_builders
-      @board.each {|position| @pathlist[position] = Chess::PathBuilder.new(position) }
+      @board.each {|square| @pathlist[square.position] = Chess::PathBuilder.new(square.position)  }
       initialize_immediate_neighbors
     end
 

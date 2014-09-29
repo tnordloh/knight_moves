@@ -2,7 +2,7 @@ module Chess
 #Board's purpose is to define the size and shape of the chess board, and to validate moves handed to it from
   #related functions, by determining if returned values are included on the board.
   class Board
-    attr_accessor 
+    attr_reader :board 
 
     def initialize(size = 8, remove = [])
       @columns = 1..8
@@ -24,7 +24,7 @@ module Chess
     end
 
     def each
-      @board.values.each { |square| yield square.position }
+      @board.values.each { |square| yield square unless square.blocked}
     end
 
     def valid_positions position 

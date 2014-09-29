@@ -8,7 +8,7 @@ KNIGHT_MOVES = [
   {:down => 2, :left  => 1},
   {:down => 1, :left  => 2}
 ]
-
+BLOCKABLE = [:BISHOP,:QUEEN,:ROOK,:PAWN]
 BISHOP_MOVES = [
   {:up       => 0, :left   => 0},
   {:up       => 1, :left   => 1},
@@ -44,3 +44,39 @@ BISHOP_MOVES = [
   {:down     => 7, :right  => 7},
   {:down     => 8, :right  => 8}
 ]
+ROOK_MOVES = [
+  {:up   => 0, :left   => 0},
+  {:up   => 1, :left   => 0},
+  {:up   => 2, :left   => 0},
+  {:up   => 3, :left   => 0},
+  {:up   => 4, :left   => 0},
+  {:up   => 5, :left   => 0},
+  {:up   => 6, :left   => 0},
+  {:up   => 7, :left   => 0},
+  {:up   => 8, :left   => 0},
+  {:down => 1, :left   => 0},
+  {:down => 2, :left   => 0},
+  {:down => 3, :left   => 0},
+  {:down => 4, :left   => 0},
+  {:down => 5, :left   => 0},
+  {:down => 6, :left   => 0},
+  {:down => 7, :left   => 0},
+  {:down => 8, :left   => 0},
+  {:down => 1, :right  => 0},
+  {:down => 2, :right  => 0},
+  {:down => 3, :right  => 0},
+  {:down => 4, :right  => 0},
+  {:down => 5, :right  => 0},
+  {:down => 6, :right  => 0},
+  {:down => 7, :right  => 0},
+  {:down => 8, :right  => 0},
+  {:up   => 1, :right  => 0},
+  {:up   => 2, :right  => 0},
+  {:up   => 3, :right  => 0},
+  {:up   => 4, :right  => 0},
+  {:up   => 5, :right  => 0},
+  {:up   => 6, :right  => 0},
+  {:up   => 7, :right  => 0},
+  {:up   => 8, :right  => 0}
+]
+QUEEN_MOVES = ROOK_MOVES + BISHOP_MOVES
