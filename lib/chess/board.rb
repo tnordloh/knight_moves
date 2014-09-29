@@ -1,8 +1,10 @@
 module Chess
+#Board's purpose is to define the size and shape of the chess board, and to validate moves handed to it from
+  #related functions, by determining if returned values are included on the board.
   class Board
     attr_accessor 
 
-    def initialize(size = 8)
+    def initialize(size = 8, remove = [])
       @columns = 1..8
       @rows = 'a'..'h'
       @board= {}
@@ -10,6 +12,11 @@ module Chess
       @piece=KNIGHT_MOVES
     end
 
+    def remove_square remove = []
+      remove.each {|square| 
+        @board.delete(square) 
+      }
+    end
     def replace_piece piece
       @piece=piece
     end

@@ -3,13 +3,16 @@ module Chess
   class PathDirector
     include Enumerable
 
-    def initialize piece = KNIGHT_MOVES
+    def initialize piece = KNIGHT_MOVES,excludelist = []
       @pathlist = {}
       @board=Chess::Board.new(8)
+      exclude excludelist
       @board.replace_piece piece
       initialize_path_builders
     end
-
+    def exclude excludelist= []
+      @board.remove_square excludelist
+    end
     def find_path start_position,finish_position
       moves = [start_position,finish_position]
       while !path_exists?(start_position,finish_position) && any_dirty_paths?
