@@ -24,9 +24,7 @@ module Chess
 
     def valid_positions position 
       set(position)
-      @board[position].moves.select { |move| 
-        is_position_valid?(move) 
-      }
+      @board[position].moves.select { |move| is_position_valid?(move) }
     end
 
     def is_position_valid? position 

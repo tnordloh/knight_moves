@@ -13,7 +13,8 @@ module Chess
     def find_path start_position,finish_position
       moves = [start_position,finish_position]
       while !path_exists?(start_position,finish_position) && any_dirty_paths?
-        discover_new_neighbors(moves.shift).each {|x| moves << x unless moves.include?(x) }
+        discover_new_neighbors(moves.shift).each {|x| 
+          moves << x unless moves.include?(x) }
       end
       to_s(start_position,finish_position)
     end
@@ -21,9 +22,13 @@ module Chess
     private
     def initialize_path_builders
       @board.each {|position| @pathlist[position] = Chess::PathBuilder.new(position) }
-      @pathlist.each {|key,position| 
-        @board.valid_positions(key).each {|x|
-          position.add_immediate_neighbor(@pathlist[x])
+      initialize_immediate_neighbors
+    end
+
+    def initialize_immediate_neighbors
+      @pathlist.values.each {|position| 
+        @board.valid_positions(position.home).each {|neighbor| 
+          position.add_immediate_neighbor(@pathlist[neighbor]) 
         }
       }
     end
@@ -36,17 +41,9 @@ module Chess
       !!@pathlist[start_position].path(finish_position)
     end
 
-    def path_iterate start_position,finish_position
-      moves = [start_position,finish_position]
-      while !path_exists?(start_position,finish_position) && any_dirty_paths?
-        discover_new_neighbors(moves.shift).each {|x| moves << x unless moves.include?(x) }
-      end
-      to_s(start_position,finish_position)
-    end
-
     def discover_new_neighbors position
-        @pathlist[position].sync_neighbor_paths
-        return @pathlist[position].immediate_neighbors
+      @pathlist[position].sync_neighbor_paths
+      return @pathlist[position].immediate_neighbors
     end
 
     def to_s start_position, finish_position
