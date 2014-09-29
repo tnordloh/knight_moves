@@ -1,13 +1,12 @@
 module Chess
   class Square
     attr_reader :position
-
     def initialize position
       @position=position
     end
 
     def to_coordinate position = @position 
-      x,y = position.scan(/\-?\d+|[a-z]+/)
+      x,y = split_chess_notation position
       [(x.ord - 'a'.ord),y.to_i-1]
     end
 
@@ -23,8 +22,8 @@ module Chess
       @piece.map {|coordinate| move coordinate }
     end
 
-    def split_chess_notation
-      fail "Bad notation" unless @position =~ /\A([a-h])(-?\d+)\z/
+    def split_chess_notation position = @position
+      fail "Bad notation" unless position =~ /\A([a-h])(-?\d+)\z/
       [$1, $2]
     end
 
@@ -32,7 +31,6 @@ module Chess
       fields = split_chess_notation
       up=(moves[:up] || 0 ) - (moves[:down] || 0)
       right=(moves[:right] || 0 ) - (moves[:left] || 0)
-      #puts "up #{moves[:up]} puts right #{moves[:right]}"
       "#{(fields[0].ord+right).chr}#{(fields[1].to_i+up)}"
     end
 
