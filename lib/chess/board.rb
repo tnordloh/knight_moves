@@ -12,10 +12,8 @@ module Chess
       @piece=KNIGHT_MOVES
     end
 
-    def remove_square remove = []
-      remove.each {|square| 
-        @board.delete(square) 
-      }
+    def block_square blocklist = []
+      blocklist.each {|square| @board[square].blocked=true }
     end
     def replace_piece piece
       @piece=piece
@@ -35,7 +33,7 @@ module Chess
     end
 
     def is_position_valid? position 
-      !!@board[position]
+      !!@board[position] && !@board[position].blocked
     end
 
   end

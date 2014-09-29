@@ -9,8 +9,10 @@ module Chess
   #without requiring changes to the "square" code
   class Square
     attr_reader :position
+    attr_accessor :blocked
     def initialize position
       @position=position
+      @blocked=false
     end
     #convert "chess coordinate" to x/y values, to simplify math for the remainder
     def to_coordinate position = @position 

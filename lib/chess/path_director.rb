@@ -11,9 +11,10 @@ module Chess
       initialize_path_builders
     end
     def exclude excludelist= []
-      @board.remove_square excludelist
+      @board.block_square excludelist
     end
     def find_path start_position,finish_position
+      validate_positions [start_position,finish_position]
       moves = [start_position,finish_position]
       while !path_exists?(start_position,finish_position) && any_dirty_paths?
         discover_new_neighbors(moves.shift).each {|x| 
@@ -23,6 +24,11 @@ module Chess
     end
 
     private
+    def validate_positions positions
+      positions.each {|position |
+        raise "position #{position} not found" if  @pathlist[position] == nil
+      }
+    end
     def initialize_path_builders
       @board.each {|position| @pathlist[position] = Chess::PathBuilder.new(position) }
       initialize_immediate_neighbors

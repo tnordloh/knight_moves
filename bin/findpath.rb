@@ -5,5 +5,5 @@ unless (2..3).cover?(ARGV.size)
   it takes it's arguments in chess notation. 
   example: #{__FILE__} a1 c2"
 end
-p=Chess::PathDirector.new(KNIGHT_MOVES,[ARGV[2]]|| [])
+p=Chess::PathDirector.new(KNIGHT_MOVES,(ARGV[2..-1] || []))
 puts p.find_path(ARGV[0],ARGV[1])
