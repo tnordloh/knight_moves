@@ -8,15 +8,6 @@ class TestPathBuilder < MiniTest::Test
   def setup
     @pb=Chess::PathBuilder.new('a1')
   end
-  def test_is_exists?
-    #assert_equal( false, @pb.is_shorter?( 'a1',1 ))
-    assert_equal( false, @pb.exists?( 'c2' ))
-  end
-  def test_is_recorded_path_shorter?
-    assert_equal( true, @pb.is_recorded_path_shorter?( 'a1',0 ))
-    assert_equal( true, @pb.is_recorded_path_shorter?( 'a1',1 ))
-    assert_equal( false, @pb.is_recorded_path_shorter?( 'c2',1 ))
-  end
   def test_add_path
     @pb.add_path("c2",1,"c2") 
     assert_equal( 1,    @pb.paths['c2'].distance)
