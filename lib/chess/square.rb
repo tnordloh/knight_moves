@@ -20,9 +20,7 @@ module Chess
     end
 
     def moves
-      @piece.map {|coordinate| 
-        send(coordinate[0], *coordinate[1]) 
-      }
+      @piece.map {|coordinate| move coordinate }
     end
 
     def split_chess_notation
@@ -30,41 +28,12 @@ module Chess
       [$1, $2]
     end
 
-    def move up = 0, right = 0
+    def move moves = {:up => 0, :right => 0 }
       fields = split_chess_notation
-      "#{(fields[0].ord+up).chr}#{(fields[1].to_i+right)}"
-    end
-
-    def up_right up = 1, right = 1
-      move up,right
-    end
-
-    def right count = 1
-      up_right count, 0
-    end
-
-    def left count = 1
-      up_right -count, 0
-    end
-
-    def up count = 1
-      up_right 0, count
-    end
-
-    def down count = 1
-      up_right 0,-count
-    end
-
-    def down_right down = 1, right = 1
-      up_right(-down,right)
-    end
-
-    def up_left up = 1, left = 1
-      up_right(up,-left)
-    end
-
-    def down_left down = 1, left = 1
-      up_right(-down,-left)
+      up=(moves[:up] || 0 ) - (moves[:down] || 0)
+      right=(moves[:right] || 0 ) - (moves[:left] || 0)
+      #puts "up #{moves[:up]} puts right #{moves[:right]}"
+      "#{(fields[0].ord+right).chr}#{(fields[1].to_i+up)}"
     end
 
   end

@@ -22,34 +22,35 @@ class TestSquare < MiniTest::Test
   end
 
   def test_up
-    assert_equal("a2", @square.up)
-    assert_equal("a4", @square.up(3) )
+    assert_equal("a2", @square.move({:up => 1}))
+    assert_equal("a4", @square.move({:up => 3}))
   end
 
   def test_down
-    assert_equal("a0", @square.down)
-    assert_equal("a-2", @square.down(3) )
+    assert_equal("a0", @square.move({:down => 1}))
+    assert_equal("a-2", @square.move(:down => 3))
   end
 
   def test_left
-    assert_equal("`1", @square.left)
-    assert_equal("_1", @square.left(2) )
+    assert_equal("`1", @square.move({:left => 1}))
+    assert_equal("_1", @square.move({:left => 2}))
   end
 
   def test_right
-    assert_equal("b1", @square.right)
-    assert_equal("c1", @square.right(2))
+    assert_equal("b1", @square.move({:right => 1}))
+    assert_equal("c1", @square.move({:right => 2}))
   end
 
   def test_up_right
-    assert_equal("b2", @square.up_right)
-    assert_equal("c3", @square.up_right(2,2))
+    assert_equal("b2", @square.move({:right => 1, :up => 1}))
+    assert_equal("c3", @square.move({:right => 2, :up => 2}))
   end
 
   def test_moves
     @square.add_piece(BISHOP_MOVES)
     values = ["a1", "b0", "c-1", "d-2", "e-3", "f-4", "g-5", "h-6", "i-7", "`0", "_-1", "^-2", "]-3", "\\-4", "[-5", "Z-6", "Y-7", "b2", "c3", "d4", "e5", "f6", "g7", "h8", "i9", "`2", "_3", "^4", "]5", "\\6", "[7", "Z8", "Y9"]
-    assert_equal(values, @square.moves)
+    values.sort!
+    assert_equal(values, @square.moves.sort!)
   end
 
 end
