@@ -2,7 +2,8 @@
 
 gem "minitest"
 require 'minitest/autorun'
-require_relative '../lib/chess.rb'
+require_relative '../lib/chess/path_builder'
+require_relative '../lib/chess/path_director'
 
 class TestPathBuilder < MiniTest::Test
   def setup

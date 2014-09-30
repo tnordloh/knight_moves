@@ -2,7 +2,9 @@
 
 gem "minitest"
 require 'minitest/autorun'
-require_relative '../lib/chess'
+require_relative '../lib/chess/board'
+require_relative '../lib/chess/square'
+require_relative '../lib/chess/constants'
 
 class TestBoard < MiniTest::Test
 
