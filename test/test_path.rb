@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 
+gem "minitest"
 require 'minitest/autorun'
 require_relative '../lib/chess'
 
-class TestBoard < MiniTest::Test
+class TestPathDirector < MiniTest::Test
 
   def setup
     @path=Chess::PathDirector.new()

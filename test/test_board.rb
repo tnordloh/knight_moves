@@ -17,7 +17,6 @@ class TestBoard < MiniTest::Test
   end
 
   def test_is_position_valid?
-    @board=Chess::Board.new()
     assert_equal(false, @board.is_position_valid?( '`-1' ) )
     assert_equal(false, @board.is_position_valid?( '`1' ) )
     assert_equal(false, @board.is_position_valid?('a-1' ) )
