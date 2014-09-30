@@ -1,6 +1,7 @@
 module Chess
-#Board's purpose is to define the size and shape of the chess board, and to validate moves handed to it from
-  #related functions, by determining if returned values are included on the board.
+#Board's purpose is to define the size and shape of the chess board, and to 
+  #validate moves handed to it from related functions, by determining if 
+  #returned values are included on the board.
   class Board
     attr_reader :board 
 
@@ -8,13 +9,16 @@ module Chess
       @columns = 1..8
       @rows = 'a'..'h'
       @board= {}
-      @rows.each { |row| @columns.each { |column| @board["#{row}#{column}"] = Chess::Square.new("#{row}#{column}") } }
+      @rows.each { |row| 
+        @columns.each { |column| @board["#{row}#{column}"] = 
+                        Chess::Square.new("#{row}#{column}") } }
       @piece=KNIGHT_MOVES
     end
 
     def block_square blocklist = []
       blocklist.each {|square| @board[square].blocked=true }
     end
+
     def replace_piece piece
       @piece=piece
     end

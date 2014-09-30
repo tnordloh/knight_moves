@@ -23,7 +23,8 @@ module Chess
 
     def sync_neighbor_paths 
       @immediate_neighbors.each {|neighbor| 
-        paths.each {|destination,path| neighbor.add_path(destination,path.distance+1,home) }
+        paths.each {|destination,path| 
+          neighbor.add_path(destination,path.distance+1,home) }
       }
       if @immediate_neighbors.size == 0
         @dirty = false

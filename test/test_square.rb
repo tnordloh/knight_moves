@@ -35,14 +35,4 @@ class TestSquare < MiniTest::Test
     assert_equal("c3", @square.move({:right => 2, :up => 2}))
   end
 
-  def test_moves
-    @square.add_piece(BISHOP_MOVES)
-    values = ["a1", "b0", "c-1", "d-2", "e-3", "f-4", "g-5", 
-              "h-6", "i-7", "`0", "_-1", "^-2", "]-3", "\\-4", 
-              "[-5", "Z-6", "Y-7", "b2", "c3", "d4", "e5", 
-              "f6", "g7", "h8", "i9", "`2", "_3", "^4", "]5", 
-              "\\6", "[7", "Z8", "Y9"].sort!
-    assert_equal(values, @square.moves.sort!)
-  end
-
 end

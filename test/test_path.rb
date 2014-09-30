@@ -15,10 +15,4 @@ class TestBoard < MiniTest::Test
     assert_includes(paths_a1_to_a2,@path.find_path('a1','a2'))
   end
 
-  def test_find_path_knight
-    @path=Chess::PathDirector.new(BISHOP_MOVES)
-    paths_a1_to_a2= "a1,b2"
-    assert_equal(paths_a1_to_a2,@path.find_path('a1','b2'))
-  end
-
 end

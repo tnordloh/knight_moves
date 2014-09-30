@@ -1,12 +1,13 @@
 module Chess
-  #Square's purpose is to encapsulate all math on chess board coordinates, by doing 
-  #appropriate 'math' on chess notation.  For example, moving a knight from "a1" 
-  #to "c2" actually shifts the knight two spaces to the right, and one space up.
-  #Math This code handles that movement, and hands back an appropriate response.
-  #Square is totally unaware of the rest of the board, so it can return coordinates 
-  #that are off the board.  The board will handle actual validation of the return values
-  #from Square.  This is intentional, to enable "board" to black out squares arbitrarily,
-  #without requiring changes to the "square" code
+  #Square's purpose is to encapsulate all math on chess board coordinates, by 
+  #doing appropriate 'math' on chess notation.  For example, moving a knight 
+  #from "a1" to "c2" actually shifts the knight two spaces to the right, and 
+  #one space up.  Math This code handles that movement, and hands back an 
+  #appropriate response.  Square is totally unaware of the rest of the board, 
+  #so it can return coordinates that are off the board.  The board will handle 
+  #actual validation of the return values from Square.  This is intentional, 
+  #to enable "board" to black out squares arbitrarily, without requiring 
+  #changes to the "square" code
   class Square
     attr_reader :position
     attr_accessor :blocked
