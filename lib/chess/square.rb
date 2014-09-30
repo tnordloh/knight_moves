@@ -14,7 +14,23 @@ module Chess
       @position=position
       @blocked=false
     end
-    #convert "chess coordinate" to x/y values, to simplify math for the remainder
+
+    def add_piece piece
+      @piece=piece
+    end
+
+    def move moves = {:up => 0, :right => 0 }
+      row,column = split_chess_notation
+      up=(moves[:up] || 0 ) - (moves[:down] || 0)
+      right=(moves[:right] || 0 ) - (moves[:left] || 0)
+      "#{(row.ord+right).chr}#{(column+up)}"
+    end
+
+    def moves
+      @piece.map {|coordinate| move coordinate }
+    end
+
+    private
     def to_coordinate position = @position 
       row,column = split_chess_notation position
       [(row.ord - 'a'.ord),column-1]
@@ -24,24 +40,9 @@ module Chess
       "#{(coordinate[0]+'a'.ord).chr}#{coordinate[1]+1}"
     end
 
-    def add_piece piece
-      @piece=piece
-    end
-
-    def moves
-      @piece.map {|coordinate| move coordinate }
-    end
-
     def split_chess_notation position = @position
       fail "Bad notation" unless position =~ /\A([a-h])(-?\d+)\z/
       [$1, $2.to_i]
-    end
-
-    def move moves = {:up => 0, :right => 0 }
-      row,column = split_chess_notation
-      up=(moves[:up] || 0 ) - (moves[:down] || 0)
-      right=(moves[:right] || 0 ) - (moves[:left] || 0)
-      "#{(row.ord+right).chr}#{(column+up)}"
     end
 
   end

@@ -10,17 +10,6 @@ class TestSquare < MiniTest::Test
     @square=Chess::Square.new("a1")
   end
 
-  def test_to_coordinate
-    assert_equal( [0,0] , @square.to_coordinate("a1"))
-    assert_equal( [0,-1] , @square.to_coordinate("a0"))
-    assert_equal( [1,-2] , @square.to_coordinate("b-1"))
-  end
-
-  def test_to_chess_notation?
-    assert_equal( "a1", @square.to_chess_notation([0,0]))
-    assert_equal( "a0", @square.to_chess_notation([0,-1]))
-  end
-
   def test_up
     assert_equal("a2", @square.move({:up => 1}))
     assert_equal("a4", @square.move({:up => 3}))
@@ -48,8 +37,11 @@ class TestSquare < MiniTest::Test
 
   def test_moves
     @square.add_piece(BISHOP_MOVES)
-    values = ["a1", "b0", "c-1", "d-2", "e-3", "f-4", "g-5", "h-6", "i-7", "`0", "_-1", "^-2", "]-3", "\\-4", "[-5", "Z-6", "Y-7", "b2", "c3", "d4", "e5", "f6", "g7", "h8", "i9", "`2", "_3", "^4", "]5", "\\6", "[7", "Z8", "Y9"]
-    values.sort!
+    values = ["a1", "b0", "c-1", "d-2", "e-3", "f-4", "g-5", 
+              "h-6", "i-7", "`0", "_-1", "^-2", "]-3", "\\-4", 
+              "[-5", "Z-6", "Y-7", "b2", "c3", "d4", "e5", 
+              "f6", "g7", "h8", "i9", "`2", "_3", "^4", "]5", 
+              "\\6", "[7", "Z8", "Y9"].sort!
     assert_equal(values, @square.moves.sort!)
   end
 

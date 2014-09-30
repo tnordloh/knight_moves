@@ -35,7 +35,6 @@ module Chess
     def is_position_valid? position 
       !!@board[position] && !@board[position].blocked
     end
-
   end
 
 end
