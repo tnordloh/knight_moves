@@ -11,7 +11,6 @@ class TestBoard < MiniTest::Test
   end
 
   def test_valid_positions_knight
-    @board=Chess::Board.new()
     @board.set( 'a1' )
     assert_equal( %w[ c2 b3].sort, @board.valid_positions('a1'))
   end
