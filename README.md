@@ -6,11 +6,15 @@ to run, execute like this:
 
 Some examples:
 
-git@github.com:tnordloh/knight_moves.git ~/code/knight_moves :./bin/findpath.rb a1 a2
+./bin/findpath.rb a1 a2
+
 a1,c2,b4,a2
-git@github.com:tnordloh/knight_moves.git ~/code/knight_moves :./bin/findpath.rb a1 a2 c2
+./bin/findpath.rb a1 a2 c2
+
 a1,b3,c1,a2
-git@github.com:tnordloh/knight_moves.git ~/code/knight_moves :./bin/findpath.rb a1 a2 c2 c1
+./bin/findpath.rb a1 a2 c2 c1
+
 a1,b3,d4,c6,b4,a2
-git@github.com:tnordloh/knight_moves.git ~/code/knight_moves :./bin/findpath.rb a1 a2 c2 c1 b3
+./bin/findpath.rb a1 a2 c2 c1 b3
+
 no path found
