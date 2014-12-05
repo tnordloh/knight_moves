@@ -11,12 +11,15 @@ Some examples:
 ./bin/findpath.rb a1 a2
 
 a1,c2,b4,a2
+
 ./bin/findpath.rb a1 a2 c2
 
 a1,b3,c1,a2
+
 ./bin/findpath.rb a1 a2 c2 c1
 
 a1,b3,d4,c6,b4,a2
+
 ./bin/findpath.rb a1 a2 c2 c1 b3
 
 no path found
