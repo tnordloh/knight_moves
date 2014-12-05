@@ -1,4 +1,6 @@
-This is a solution to the ruby quiz http://rubyquiz.com/quiz27.html
+This is a solution to the ruby quiz described at:
+
+http://rubyquiz.com/quiz27.html
 
 to run, execute like this:
 
