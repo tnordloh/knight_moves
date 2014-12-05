@@ -6,7 +6,7 @@ to run, execute like this:
 
 ./bin/findpath.rb start_postion finish_postion [list of squares to exclude]
 
-Some examples:
+Here is the output from a few sample runs, where I find a path between a1 and a2, and then remove the first possible move from the returned routes, until I eliminate all possible paths between those two positions:
 
 ./bin/findpath.rb a1 a2
 
